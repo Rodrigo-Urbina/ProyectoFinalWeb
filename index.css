@@ -1,0 +1,23 @@
+h1, h2, h3, h4, h5, h6 {
+  color: #263238;
+}
+
+.margin {
+  margin: 50px 0px;
+}
+
+.agregarUsuarios {
+  max-width: 500px;
+}
+
+.add-user-form {
+  margin: auto;
+}
+
+#tab-0 {
+  display: block;
+}
+
+#tab-1, #tab-2, #tab-3, #userTable1, #user-depositar-retirar {
+  display: none;
+}

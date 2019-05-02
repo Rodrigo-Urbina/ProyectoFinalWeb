@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Bolsa de Inversiones</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper teal">
+      <a href="#!" class="brand-logo">DineroRápidoFácil.com</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li id="tab0">-</li>
+        <li id="tab3"><a href="#">-</a></li>
+        <li><a id="tab1" href="#">Usuarios</a></li>
+        <li><a id="tab2" href="#">Inversiones</a></li>
+        <li><a id="tab6" href="#">Cerrar Sesion</a></li></ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+
+  </ul>
+
+  <div id="tab-0" class="container">
+    <h1 class="center">DineroRápidoFácil.com</h1>
+
+    <form class="agregarUsuarios add-user-form">
+      <div class="card-panel white black-text">
+        <div class="row">
+          <h4 class="center">Cambiar Usuario</h4>
+          <div class="input-field col s12">
+            <input id="formID" type="number" class="validate">
+            <label for="formID">id</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="formPass" type="text" class="validate">
+            <label for="formPass">contrasena</label>
+          </div>
+
+
+          <div class="center">
+            <a id="iniciarSesion" class="btn waves-effect waves-light">Iniciar Sessión
+              <i class="material-icons right">send</i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </form>
+
+
+
+
+
+    <table id="userTable1" class="margin">
+
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Nombre</th>
+          <th>Rol</th>
+          <th>FechaDeRegistro</th>
+          <th>SaldoTotal</th>
+          <th>SaldoDisponible</th>
+          <th>SalgoCongelado</th>
+          <th>Ganancias</th>
+        </tr>
+      </thead>
+
+      <tbody id="individualUser">
+      </tbody>
+    </table>
+
+    <table id="userTable2" class="margin">
+      <thead>
+        <tr>
+          <th>Cliente ID</th>
+          <th>Cliente</th>
+          <th>Promotor ID</th>
+          <th>Fecha</th>
+          <th>Inversion</th>
+          <th>% de Retorno</th>
+          <th>Tipo</th>
+          <th>Duración (días)</th>
+          <!--th>Días Restantes</th-->
+          <!--th>Activa</th-->
+        </tr>
+      </thead>
+
+      <tbody id="individualUser2">
+      </tbody>
+    </table>
+    <form id="user-depositar-retirar" class="agregarUsuarios add-user-form">
+      <div class="card-panel white black-text">
+        <div class="row">
+          <h4 class="center">Depositar / Retirar </h4>
+          <div class="input-field col s12">
+            <input id="cantidad" type="number" class="validate">
+            <label for="cantidad">Cantidad</label>
+          </div>
+
+          <div class="input-field col s12">
+            <select id="selectRetiroDepositar">
+              <option value="Cete" selected>Retirar</option>
+              <option value="Bonde">Depositar</option>
+            </select>
+            <label>Tipo</label>
+          </div>
+
+          <div class="center">
+            <a id="iniciarSesion" class="btn waves-effect waves-light">Enviar
+              <i class="material-icons right">send</i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+
+
+
+
+  <div id="tab-1" class="container">
+    <h1 class="center">Usuarios</h1>
+    <table class="margin">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Nombre</th>
+          <th>Rol</th>
+          <th>FechaDeRegistro</th>
+          <th>SaldoTotal</th>
+          <th>SaldoDisponible</th>
+          <th>SalgoCongelado</th>
+          <th>Ganancias</th>
+        </tr>
+      </thead>
+
+      <tbody id="userTableRows">
+      </tbody>
+    </table>
+
+
+    <form id="agregarClienteForm" class="agregarUsuarios add-user-form">
+      <div class="card-panel white black-text">
+        <div class="row">
+          <h4 class="center">Agregar Cliente</h4>
+          <div class="input-field col s12">
+            <input id="nombre" type="text" class="validate">
+            <label for="nombre">Nombre</label>
+          </div>
+
+          <div class="input-field col s12">
+            <input id="saldoInicial" type="number" class="validate">
+            <label for="saldo_inicial">Saldo Inicial</label>
+          </div>
+
+          <div class="center">
+            <a id="addUser" class="btn waves-effect waves-light">Enviar
+              <i class="material-icons right">send</i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+  <div id="tab-2" class="container">
+
+    <h1 class="center">Inversiones</h1>
+
+    <div class="center">
+      <form>
+        <div class="row">
+
+        </div>
+      </form>
+    </div>
+    <table class="margin">
+      <thead>
+          <tr>
+              <th>Cliente ID</th>
+              <th>Cliente</th>
+              <th>Promotor ID</th>
+              <th>Fecha</th>
+              <th>Inversion</th>
+              <th>% de Retorno</th>
+              <th>Tipo</th>
+              <th>Duración (días)</th>
+              <!--th>Días Restantes</th-->
+              <!--th>Activa</th-->
+              <th>Ganancia</th>
+              <th>Comisión (10%)</th>
+          </tr>
+      </thead>
+
+      <tbody id="tablaInversiones">
+      </tbody>
+    </table>
+
+    <form id="agregarInversionForm" class="agregarUsuarios add-user-form">
+      <div class="card-panel white black-text">
+        <div class="row">
+          <h4 class="center">Agregar Inversion</h4>
+
+          <div class="input-field col s12">
+            <input id="userId" type="number" class="validate">
+            <label for="userId">User ID </label>
+          </div>
+
+
+          <div class="input-field col s12">
+            <input id="dias" type="number" class="validate">
+            <label for="dias">Duración (días)</label>
+          </div>
+
+          <div class="input-field col s12">
+            <input id="inversion" type="number" class="validate">
+            <label for="inversion">Inversion</label>
+          </div>
+
+          <div class="input-field col s12">
+            <input id="porcentaje" type="number" class="validate">
+            <label for="porcentaje">Porcentaje de Ganancia % (Ej 10 = 10%)</label>
+          </div>
+
+          <div class="input-field col s12">
+            <select id="tipoSelect">
+              <option value=0 disabled selected>-</option>
+              <option value="Cete">Cete</option>
+              <option value="Bonde">Bonde</option>
+            </select>
+            <label>Tipo</label>
+          </div>
+
+          <div class="center">
+            <a id="addInversion" class="btn waves-effect waves-light">Enviar
+              <i class="material-icons right">send</i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+  <div id="tab-3" class="container">
+    <h1 class="center">DineroRápidoFácil.com</h1>
+
+    <form class="agregarUsuarios add-user-form">
+      <div class="card-panel white black-text">
+        <input id="clickHere" type="text" class="datepicker" />
+        <label for="clickHere">Haz clic sobre la linea</label>
+        <div class="center">
+          <a id="cambiarFecha" class="btn waves-effect waves-light">Cambiar Fecha
+            <i class="material-icons right">send</i>
+          </a>
+        </div>
+
+      </div>
+    </form>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script src="./index.js">
+    </script>
+
+
+</body>
+
+</html>
