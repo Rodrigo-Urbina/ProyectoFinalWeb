@@ -15,6 +15,8 @@ $(document).ready(function() {
   setDate();
   fillUserTable(users);
   fillInvestmentTable(inversiones);
+  onloadUsers();
+  onloadInvests();
 
   $('.sidenav').sidenav();
   $('select').formSelect();
@@ -82,6 +84,56 @@ $(document).ready(function() {
   })
 });
 
+function onloadUsers(){
+  let url = './DineroFacilyRapido';
+  let settings = {
+    method : 'GET1',
+    headers : {
+      'Content-Type' : 'application/json'
+    }
+  };
+
+  fetch(url, settings)
+    .then(response => {
+      if (response.ok){
+        return response.json();
+      }
+      throw new Error(response.statusText);
+    })
+    .then(responseJSON => {
+      //displaySportList(responseJSON);
+      initUsers(responseJSON);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
+function onloadInvests(){
+  let url = './DineroFacilyRapido';
+  let settings = {
+    method : 'GET2',
+    headers : {
+      'Content-Type' : 'application/json'
+    }
+  };
+
+  fetch(url, settings)
+    .then(response => {
+      if (response.ok){
+        return response.json();
+      }
+      throw new Error(response.statusText);
+    })
+    .then(responseJSON => {
+      //displaySportList(responseJSON);
+      initInver2(responseJSON);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+}
+
 function init(users) {
   users[users.length] = [
     {
@@ -108,7 +160,7 @@ function init(users) {
       ganancias: 0,
     }
   ];
-  users[users.length] = [
+  /*users[users.length] = [
     {
       id: 3,
       nombre: "Alban",
@@ -129,7 +181,21 @@ function init(users) {
       ganancias: 0,
       registro: fecha
     }
-  ];
+  ];*/
+}
+
+function initUsers(data) {
+  for (let i = 0; i < data.users.length; i ++){
+    users[users.length] = [{
+      id: data.users[i].id,
+      nombre: data.users[i].nombre,
+      contra: data.users[i].contra,
+      saldo: data.users[i].saldo,
+      rol: data.users[i].rol,
+      ganancias: data.users[i].ganancias,
+      registro: data.users[i].fecha
+    }];
+  }
 }
 
 function initInversiones(inversiones) {
@@ -176,6 +242,23 @@ function initInversiones(inversiones) {
       gananciaReal: 10.4
     }
   ];
+}
+
+function initInver2(data) {
+  for (let i = 0; i < data.invests.length; i ++){
+    inversiones[inversiones.length] = [{
+      id: data.invests[i].id,
+      fecha: data.invests[i].fecha,
+      userId: data.invests[i].userId,
+      duracion: data.invests[i].duracion,
+      inversion: data.invests[i].inversion,
+      porcentaje: data.invests[i].porcentaje,
+      tipo: data.invests[i].tipo,
+      ganancia: data.invests[i].ganancia,
+      comision: data.invests[i].comision,
+      gananciaReal: data.invests[i].gananciaReal
+    }];
+  }
 }
 
 function today() {
@@ -381,7 +464,7 @@ function addUsers(users) {
   let saldo = $('#saldoInicial').val();
   let pass = "clien";
 
-  users[users.length] = [
+  /*users[users.length] = [
     {
       id: id,
       nombre: nombre,
@@ -390,11 +473,51 @@ function addUsers(users) {
       rol: "Cliente",
       ganancias: 0,
       registro: fecha
-    }
-  ]
+    }];*/
+
+    let temp = [
+    {
+      id: id,
+      nombre: nombre,
+      //contra: pass.concat(id),
+      saldo: saldo,
+      rol: "Cliente",
+      //ganancias: 0,
+      registro: fecha
+    }];
 
   $('#nombre').val('');
   $('#saldoInicial').val('');
+
+  let url = './DineroFacilyRapido';
+  let settings = {
+    method : 'POST1',
+    headers : {
+      'Content-Type' : 'application/json'
+    },
+    body: JSON.stringify(temp)
+  };
+
+  fetch(url, settings)
+    .then(response => {
+      if (response.ok){
+        return response.json();
+      } else {
+        return new Promise(function(resolve, reject){
+          resolve(response.json());
+        })
+        .then(data =>{
+          throw new Error(temp.message);
+        })
+      }
+    })
+    .then(responseJSON => {
+      //displaySportList(responseJSON);
+      initUsers(responseJSON);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
 function addInversion(inversiones) {
@@ -406,26 +529,23 @@ function addInversion(inversiones) {
   let porcentaje = ($('#porcentaje').val());
   let tipo = $('#tipoSelect').val();
 
-  var porcentajeDecimal = porcentaje/100
+  var porcentajeDecimal = porcentaje/100;
   var ganancia =  ( 1+ (parseFloat(porcentajeDecimal)/365 ) )
 
-var tiempo = 365* parseFloat(dias/365);
+  var tiempo = 365* parseFloat(dias/365);
 
   ganancia = Math.pow(ganancia, tiempo);
 
-  ganancia = parseFloat(inversion)* ganancia;
-
-
-
-
+  ganancia = parseFloat(inversion) * ganancia;
 
   ganancia = ganancia - parseFloat(inversion)
   ganancia = ganancia.toFixed(2);
-  var comision = ganancia*.10
+  var comision = ganancia * .10;
   comision = comision.toFixed(2);
+  gananciaReal = ganancia - comision;
 
 
-  inversiones[inversiones.length] = [
+  let temp = [
     {
       id: id,
       fecha: fecha,
@@ -434,8 +554,9 @@ var tiempo = 365* parseFloat(dias/365);
       inversion: inversion,
       porcentaje: porcentaje,
       tipo: tipo,
-      ganancia:ganancia,
-      comision:comision
+      //ganancia:ganancia,
+      //comision:comision,
+      //gananciaReal: gananciaReal
     }
   ]
 
@@ -443,6 +564,37 @@ var tiempo = 365* parseFloat(dias/365);
   $('#dias').val('');
   $('#inversion').val('');
   $('#porcentaje').val('');
+
+  let url = './DineroFacilyRapido';
+  let settings = {
+    method : 'POST2',
+    headers : {
+      'Content-Type' : 'application/json'
+    },
+    body: JSON.stringify(temp)
+  };
+
+  fetch(url, settings)
+    .then(response => {
+      if (response.ok){
+        return response.json();
+      } else {
+        return new Promise(function(resolve, reject){
+          resolve(response.json());
+        })
+        .then(data =>{
+          throw new Error(temp.message);
+        })
+      }
+    })
+    .then(responseJSON => {
+      //displaySportList(responseJSON);
+      initInver2(responseJSON);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
 }
 
 function getUserById(users, id) {
